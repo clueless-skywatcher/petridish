@@ -1,9 +1,28 @@
-FROM maven:3.8.5-openjdk-17 AS build
-COPY src /usr/petridish/src
-COPY pom.xml /usr/petridish
-RUN mvn -f /usr/petridish/pom.xml clean package
+FROM alpine as build
 
-FROM openjdk:17-jdk-alpine
-COPY --from=build /usr/petridish/target/petridish.jar /usr/local/lib/petridish.jar
-EXPOSE 6379
-ENTRYPOINT ["java","-jar","/usr/local/lib/petridish.jar"]
+ARG MAVEN_VERSION=3.9.9
+ARG USER_HOME_DIR="/root"
+ARG BASE_URL=https://apache.osuosl.org/maven/maven-3/${MAVEN_VERSION}/binaries
+
+
+# Install Java.
+RUN apk --update --no-cache add openjdk17 curl git
+
+RUN mkdir -p /usr/share/maven /usr/share/maven/ref \
+ && curl -fsSL -o /tmp/apache-maven.tar.gz ${BASE_URL}/apache-maven-${MAVEN_VERSION}-bin.tar.gz \
+ && tar -xzf /tmp/apache-maven.tar.gz -C /usr/share/maven --strip-components=1 \
+ && rm -f /tmp/apache-maven.tar.gz \
+ && ln -s /usr/share/maven/bin/mvn /usr/bin/mvn
+
+ENV MAVEN_HOME /usr/share/maven
+ENV MAVEN_CONFIG "$USER_HOME_DIR/.m2"
+
+ENV JAVA_HOME /usr/lib/jvm/default-jvm/
+
+RUN git clone https://github.com/clueless-skywatcher/petridish.git /opt/petridish
+WORKDIR /opt/petridish
+RUN mvn -f pom.xml clean package
+
+COPY target/petridish.jar /usr/local/petridish.jar
+
+CMD ["java", "-jar", "/usr/local/petridish.jar"]

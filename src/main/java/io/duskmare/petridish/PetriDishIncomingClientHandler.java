@@ -41,7 +41,6 @@ public class PetriDishIncomingClientHandler extends Thread {
             e.printStackTrace(new PrintWriter(sw));
             PetriDishServer.LOGGER.log(Level.SEVERE, sw.toString());
         }
-             
     }
 
 }
