@@ -1,0 +1,6 @@
+services:
+  petridish:
+    container_name: petridish
+    build: .
+    ports:
+      - "6379:6379"
