@@ -1,5 +1,6 @@
 FROM maven:3.9.9-eclipse-temurin-17-alpine AS build
 RUN apk --update add git
+ARG CACHEBUST=1
 RUN git clone https://github.com/clueless-skywatcher/petridish.git /opt/petridish
 WORKDIR /opt/petridish
 COPY src /usr/petridish/src

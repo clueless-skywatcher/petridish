@@ -5,10 +5,12 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.io.StringWriter;
-import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.logging.Level;
 
+import io.duskmare.petridish.exceptions.InvalidRespCommandException;
+import io.duskmare.petridish.resp.RespCommandsHandler;
+import io.duskmare.petridish.resp.commands.RespCommand;
 import io.duskmare.petridish.resp.data.RespObject;
 import io.duskmare.petridish.resp.readers.RespReaderFactory;
 
@@ -31,9 +33,18 @@ public class PetriDishIncomingClientHandler extends Thread {
                 if (resp == null) {
                     continue;
                 }
-                PetriDishServer.LOGGER.log(Level.INFO, resp.toString());
-                out.write("+OK\r\n");    
-                out.flush();
+                try {
+                    RespCommand command = RespCommandsHandler.generateCommand(resp);
+                    RespObject result = command.execute();
+                    PetriDishServer.LOGGER.log(Level.INFO, result.toString());
+                    out.write(String.format("+%s\r\n", result.toString()));    
+                    out.flush();
+                }
+                catch (InvalidRespCommandException e) {
+                    out.write(String.format("+%s\r\n", e.getMessage()));    
+                    out.flush();
+                }
+                
             }       
         }
         catch (IOException e) {
