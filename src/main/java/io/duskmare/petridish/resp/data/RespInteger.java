@@ -10,6 +10,6 @@ public class RespInteger implements RespObject {
     }
 
     public String toString() {
-        return this.value.toString();
+        return String.format(":%d\r\n", value);
     }
 }

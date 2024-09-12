@@ -4,6 +4,7 @@ import java.util.List;
 
 import io.duskmare.petridish.PetriDishServer;
 import io.duskmare.petridish.exceptions.InvalidRespCommandException;
+import io.duskmare.petridish.resp.GlobalRespObjects;
 import io.duskmare.petridish.resp.data.RespObject;
 
 public class GetResp implements RespCommand {
@@ -18,7 +19,11 @@ public class GetResp implements RespCommand {
 
     @Override
     public RespObject execute() {
-        return PetriDishServer.GLOBAL_MAP.get(key.getValue().toString());
+        String keyString = key.getValue().toString();
+        if (!PetriDishServer.GLOBAL_MAP.containsKey(keyString)) {
+            return GlobalRespObjects.NULL;
+        }
+        return PetriDishServer.GLOBAL_MAP.get(keyString);
     }
     
 }

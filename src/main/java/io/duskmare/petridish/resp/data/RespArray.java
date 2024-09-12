@@ -1,6 +1,7 @@
 package io.duskmare.petridish.resp.data;
 
 import java.util.List;
+import java.util.StringJoiner;
 import java.util.ArrayList;
 
 import lombok.Getter;
@@ -21,6 +22,10 @@ public class RespArray implements RespObject {
     }
 
     public String toString() {
-        return value.toString();
+        StringJoiner joiner = new StringJoiner("\r\n");
+        for (RespObject obj : value) {
+            joiner.add(obj.toString());
+        }
+        return String.format("*%d\r\n%s\r\n", value.size(), joiner.toString());
     }
 }

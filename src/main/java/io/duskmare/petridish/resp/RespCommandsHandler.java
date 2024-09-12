@@ -13,7 +13,7 @@ import io.duskmare.petridish.resp.data.RespObject;
 public class RespCommandsHandler {
     public static RespCommand generateCommand(RespObject objs) {
         RespArray array = (RespArray) objs;
-        String commandName = array.getValue().get(0).toString().toUpperCase();
+        String commandName = array.getValue().get(0).getValue().toString().toUpperCase();
         List<RespObject> args = array.getValue().subList(1, array.getValue().size());
         RespCommand command;
         switch (commandName) {

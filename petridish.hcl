@@ -1,6 +1,6 @@
 job "petridish" {
     type = "service"
-    group "ptc-petridish" {
+    group "petridish" {
 		count = 1
 		network {
 			port "petridish" {

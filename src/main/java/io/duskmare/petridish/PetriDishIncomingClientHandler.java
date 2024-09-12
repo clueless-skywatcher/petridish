@@ -36,8 +36,7 @@ public class PetriDishIncomingClientHandler extends Thread {
                 try {
                     RespCommand command = RespCommandsHandler.generateCommand(resp);
                     RespObject result = command.execute();
-                    PetriDishServer.LOGGER.log(Level.INFO, result.toString());
-                    out.write(String.format("+%s\r\n", result.toString()));    
+                    out.write(result.toString());    
                     out.flush();
                 }
                 catch (InvalidRespCommandException e) {
