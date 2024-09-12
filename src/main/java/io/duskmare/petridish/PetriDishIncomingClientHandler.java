@@ -25,6 +25,7 @@ public class PetriDishIncomingClientHandler extends Thread {
     public void run() {
         try {
             PetriDishServer.LOGGER.log(Level.INFO, String.format("Accepted new connection from: %s", clientSocket.getLocalAddress()));
+            PetriDishServer.LOGGER.log(Level.INFO, "New thread started: " + this.getName());
             PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true);
             while (true) {
                 InputStreamReader in = new InputStreamReader(clientSocket.getInputStream());
