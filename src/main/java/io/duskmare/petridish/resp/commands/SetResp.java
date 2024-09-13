@@ -21,7 +21,7 @@ public class SetResp implements RespCommand {
 
     @Override
     public RespObject execute() {
-        PetriDishServer.GLOBAL_MAP.put(key.getValue().toString(), value);
+        PetriDishServer.GLOBAL_MAP.set(key.getValue().toString(), value);
         return GlobalRespObjects.OK;
     }
     
