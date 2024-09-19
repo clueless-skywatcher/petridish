@@ -9,6 +9,10 @@ public class RespBulkString implements RespObject {
         this.value = value;
     }
 
+    public RespBulkString(int value) {
+        this.value = Integer.toString(value);
+    }
+
     public String toString() {
         return String.format("$%d\r\n%s\r\n", value.length(), value);
     }

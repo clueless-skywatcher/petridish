@@ -41,7 +41,7 @@ public class PetriDishIncomingClientHandler extends Thread {
                     out.flush();
                 }
                 catch (InvalidRespCommandException e) {
-                    out.write(String.format("+%s\r\n", e.getMessage()));    
+                    out.write(String.format("+%s\r\n", "ERR " + e.getMessage()));    
                     out.flush();
                 }
                 

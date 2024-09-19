@@ -4,6 +4,7 @@ import java.util.List;
 
 import io.duskmare.petridish.exceptions.InvalidRespCommandException;
 import io.duskmare.petridish.resp.commands.GetResp;
+import io.duskmare.petridish.resp.commands.IncrementResp;
 import io.duskmare.petridish.resp.commands.PingResp;
 import io.duskmare.petridish.resp.commands.RespCommand;
 import io.duskmare.petridish.resp.commands.SetResp;
@@ -25,6 +26,9 @@ public class RespCommandsHandler {
                 break;
             case "GET":
                 command = new GetResp(args);
+                break;
+            case "INCR":
+                command = new IncrementResp(args);
                 break;
             default:
                 throw new InvalidRespCommandException("Unknown command: " + commandName);

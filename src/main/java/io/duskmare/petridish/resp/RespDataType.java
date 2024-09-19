@@ -7,7 +7,8 @@ public enum RespDataType {
     INTEGER(':'),
     BULK_STRING('$'),
     ERROR('-'),
-    ARRAY('*');
+    ARRAY('*'),
+    NULL('$');
 
     private @Getter char beginning;
 

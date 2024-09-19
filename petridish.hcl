@@ -18,7 +18,7 @@ job "petridish" {
 			driver = "docker"
 
 			config {
-				image = "docker.io/epsilonator0x11/petridish:latest"
+				image = "000000000000.dkr.ecr.us-east-1.localhost.localstack.cloud:4566/epsilonator/petridish:latest"
 				ports = ["petridish"]
 			}
 		}
