@@ -1,6 +1,6 @@
 package io.duskmare.petridish.hashfuncs;
 
-public class Murmur3Hash32 implements HashingAlgorithm {
+public class Murmur3X32 implements HashingAlgorithm {
     private final int C1 = 0xcc9e2d51;
     private final int C2 = 0x1b873593;
     private final int R1 = 15;
@@ -11,7 +11,7 @@ public class Murmur3Hash32 implements HashingAlgorithm {
 
     private int seed = 42;
 
-    public Murmur3Hash32(int seed) {
+    public Murmur3X32(int seed) {
         this.seed = seed;
     }
 
